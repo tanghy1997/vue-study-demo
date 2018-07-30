@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // Vue 根实例
+        const vm = new Vue({
+            el: '#app',
+            data {
+                foo: 1
+            },
+            computed: {
+                bar: function () { /* ... */ }
+            },
+            methods: {
+                baz: function () { /* ... */ }
+            }
+        })
+        // 所有的子组件都可以将这个实例作为一个全局 store 来访问或使用。
+        // 获取根组件的数据
+        this.$root.foo
+
+        // 写入根组件的数据
+        this.$root.foo = 2
+
+        // 访问根组件的计算属性
+        this.$root.bar
+
+        // 调用根组件的方法
+        this.$root.baz()
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <link rel="stylesheet" href="styles/demo.css" />
+</head>
+<body>
+    <div id="app">
+        <h1>hello,vue</h1>
+        <h1  v-show="yes">yes</h1>
+        <h1 v-show="no">no</h1>
+        <h1 v-show="age >= 25">Age: {{ age }}</h1>
+        <h1 v-show="name.indexOf('jack') >= 0">Name: {{ name }}</h1>
+    </div>
+
+    <script>
+        var vm = new Vue({
+			el: '#app',
+			data: {
+				yes: true,
+				no: false,
+				age: 24,
+				name: 'keepfooljack'
+			}
+		})
+    </script>
+</body>
+</html>

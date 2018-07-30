@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+
+    <script>
+        const User = {
+            template: `
+                <div>
+                    <h2>user {{ $route.params.id }}</h2>
+                    <router-view></router-view>
+                </div>
+                `,
+        };
+
+        const UserPosts = {
+            template: '<div>这是 posts</div>'
+        };
+
+        const UserProfile = {
+            template: '<div>这是 profile</div>'
+        };
+        const HomePage = {
+            template: '<div>这是针对无匹配子路由路径页面</div>'
+        };
+
+        const router = new VueRouter({
+            routes: [
+                { path: '/user/:id', component: User,
+                    children: [
+                        // 基于上面的配置，当你访问 /user/foo 时，User 的出口是不会渲染任何东西，这是
+                        // 因为没有匹配到合适的子路由。如果你想要渲染点什么，可以提供一个 空的 子路由：
+                        /**
+                         * 注意这个只能放在子路由的首部，不然显示不了
+                         * **/
+                        {
+                            path: '',
+                            component: HomePage
+                        },
+                        {
+                            // 当 /user/:id/profile 匹配成功，
+                            // UserProfile 会被渲染在 User 的 <router-view> 中
+                            path: 'profile',
+                            component: UserProfile
+                        },
+                        {
+                            path: 'posts',
+                            component: UserPosts
+                        },
+                    ]}
+            ]
+        });
+
+        const app = new Vue({
+            router
+        }).$mount('#app')
+    </script>
+
+</body>
+</html>

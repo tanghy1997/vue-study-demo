@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <style>
+    .slide-fade-enter-active{
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active{
+        transition: all .6s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active for below version 2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+    </style>
+</head>
+<body>
+    <!-- 结合Animate.css -->
+
+    <div id="app">
+        <button @click="show =! show">
+            change
+        </button>
+        <transition name="slide-fade">
+            <p v-if="show">hellp world</p>
+        </transition>
+
+        <button @click="showa =! showa">
+            animate
+        </button>
+        <transition
+            name="animate-transition"
+            enter-active-class="animated tada"
+            leave-active-class="animated bounceOutRight">
+            <p v-if="showa">Animate.css</p>
+        </transition>
+    </div>
+    
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                showa:true
+            }
+        })
+    </script>
+</body>
+</html>

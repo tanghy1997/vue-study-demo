@@ -1,0 +1,64 @@
+<!-- v-for的使用 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <ul>
+           <li v-for="item in datas">
+               {{ item.color }}
+           </li>
+       </ul> 
+
+       <!-- 在 v-for 块中，我们拥有对父作用域属性的完全访问权限。
+        v-for 还支持一个可选的第二个参数为当前项的索引。 -->
+        <ul>
+            <li v-for="(item, index) in datas">
+                {{ index }} this color is {{ item.color }}
+            </li>
+        </ul>
+
+        <!-- 一个对象的v-for 也可以提供第二个的参数为键名还可以加索引参数-->
+        <ul class="demo">
+            <li v-for="(value, key, index) in object">
+                {{index}}-{{key}}:{{value}}
+            </li>
+        </ul>
+
+        <!-- Key -->
+        <!-- 为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，
+            你需要为每项提供一个唯一 key 属性。理想的 key 值是每项都有的且唯一的 id。
+            这个特殊的属性相当于 Vue 1.x 的 track-by ，但它的工作方式类似于一个属性，
+            所以你需要用 v-bind 来绑定动态值 (在这里使用简写)： -->
+        <ul class="demo">
+            <li v-for="(value, key, index) in object" :key="key">
+                {{index}}-{{key}}:{{value}}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data:{
+                datas: [
+                    { color: 'red' },
+                    { color: 'blue' }
+                ],
+                object: {
+                    name: 'zhangsan',
+                    age: 12,
+                    genera: 'female'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

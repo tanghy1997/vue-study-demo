@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <link rel="stylesheet" href="styles/demo.css" />
+</head>
+<body>
+    <div id="app">
+        <fieldset>
+            <legend>
+                Create New Person
+            </legend>
+            <div class="form-group">
+                <label for="">Name:</label>
+                <input type="text" v-model="newPerson.name">
+            </div>
+            <div class="form-group">
+                <label for="">Age:</label>
+                <input type="number" v-model="newPerson.age">
+            </div>
+            <div class="form-group">
+                <label for="">Sex:</label>
+                <select  v-model="newPerson.sex">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for=""></label>
+                <button @click="createNewPerson">Created</button>
+            </div>
+        </fieldset>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in people" :key="item.id">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.age }}</td>
+                    <td>{{ item.sex }}</td>
+                    <td class="text-center"><button @click="deleteData(index)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data:{
+                newPerson: {
+                    name: '',
+                    age: 0,
+                    sex: 'male'
+                },
+                people: []
+            },
+            methods: {
+                createNewPerson() {
+                    this.people.push(this.newPerson);
+
+                    // 重置信息
+                    this.newPerson = {
+                        name: '',
+                        age: '',
+                        sex: 'male'
+                    }
+                },
+                deleteData(index) {
+                    this.people.splice(index,1);
+                }
+
+            },
+            watch: {
+                people(){
+                    alert('新增成功')
+                    console.log(this.people)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

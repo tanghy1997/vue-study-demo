@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <input v-model="searchText"> -->
+        <!-- 上下两个是等价的 -->
+        <!-- <input
+        v-bind:value="searchText"
+        v-on:input="searchText = $event.target.value"
+        > -->
+        <div>{{searchText}}</div>
+
+        <custom-input v-model="searchText"></custom-input>
+
+
+        <!-- 通过插槽分发内容 -->
+        <alert-box>
+            Something bad
+        </alert-box>
+
+        <!-- 动态组件 -->
+        <table>
+            <tr>
+                <button @click="choice = 'A'">A组件</button>
+                <button @click="choice = 'B'">B组件</button>
+                <button @click="choice = 'C'">C组件</button> 
+            </tr>
+            <component :is="choice"></component>
+            
+            <!-- 在table标签中只能用特定的标签所以直接用组件的话可能出现错误 -->
+            <table>
+                <!-- <A></A> -->
+                <!-- 而是使用is来实现 -->
+                <tr is="A"></tr>
+            </table>
+        </table>
+    </div>
+
+    <script>
+        Vue.component('custom-input', {
+            props: ['value'],
+            template: `
+            <input
+            v-bind:value="value"
+            v-on:input="$emit('input', $event.target.value)"
+            >
+            `
+        });
+
+        Vue.component('alert-box', {
+            template: `
+            <div class="demo-alert-box">
+                <strong>Error!</strong>
+                <slot></slot>
+            </div>
+            `
+        })
+
+        Vue.component('A', {
+            template: `
+            <div>
+                This is A
+            </div>
+            `
+        })
+        Vue.component('B', {
+            template: `
+            <div>
+                This is B
+            </div>
+            `
+        })
+        Vue.component('C', {
+            template: `
+            <div>
+                This is C
+            </div>
+            `
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                searchText: 123,
+                choice: ''
+            }
+        })
+    </script>
+</body>
+</html>

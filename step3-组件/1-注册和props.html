@@ -1,0 +1,46 @@
+<!-- 组件 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 组件的可复用性 -->
+        <button-counter :title="this.dataTitle"></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+    </div>
+    
+    <script>
+        // 组件的全局注册
+        /**
+         * 全局注册的组件可以用在其被注册之后的任何 (通过 new Vue) 新创建的 Vue 根实例，
+         * 也包括其组件树中的所有子组件的模板中。
+         * */ 
+
+         // 父级通过props来传递数据
+
+        Vue.component('button-counter', {
+            props:['title'],
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button @click="count++">{{title}}you click me {{count}} time</button>'
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                dataTitle: '这是标题props'
+            }
+        })
+        </script>
+</body>
+</html>

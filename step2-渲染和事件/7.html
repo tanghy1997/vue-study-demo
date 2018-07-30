@@ -1,0 +1,102 @@
+<!-- 事件监听 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="counter += 1">add</button>
+        <div>show this counter {{counter}}</div>
+
+        <button @click="sayHello">Hello</button>
+        <br>
+        <button @click="sayHi('tang')">Hi</button>
+
+
+        <!-- 阻止单击事件继续传播 -->
+        <button v-on:click.stop="doThis">阻止事件的继续传播</button>
+
+        <!-- 提交事件不再重载页面 -->
+        <form v-on:submit.prevent="onSubmit"></form>
+
+        <!-- 修饰符可以串联 -->
+        <a v-on:click.stop.prevent="doThat"></a>
+
+        <!-- 只有修饰符 -->
+        <form v-on:submit.prevent></form>
+
+        <!-- 添加事件监听器时使用事件捕获模式 -->
+        <!-- 即元素自身触发的事件先在此处处理，然后才交由内部元素进行处理 -->
+        <div v-on:click.capture="doThis">...</div>
+
+        <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+        <!-- 即事件不是从内部元素触发的 -->
+        <div v-on:click.self="doThat">...</div>
+
+        <!-- 点击事件将只会触发一次 -->
+        <button v-on:click.once="doThis">只触发一次</button>
+
+        <input value="按键修饰符" type="text" @keyup.enter="doThis">
+    </div>
+
+    <script>
+        /**
+        按键修饰符
+        全部的按键别名：
+        .enter
+        .tab
+        .delete (捕获“删除”和“退格”键)
+        .esc
+        .space
+        .up
+        .down
+        .left
+        .right
+
+        可以通过全局 config.keyCodes 对象自定义按键修饰符别名：
+        // 可以使用 `v-on:keyup.f1`
+        Vue.config.keyCodes.f1 = 112
+        **/
+
+
+        /**
+        鼠标按钮修饰符
+        .left
+        .right
+        .middle
+        **/
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                counter: 0,
+                name: 'Frank T'
+
+            },
+            methods: {
+                sayHello(event) {
+                    alert('Hello' + this.name +'!!');
+                    // `event` 是原生 DOM 事件
+                    if(event) {
+                        alert(event.target.tagName)
+                    };
+                },
+                sayHi(e) {
+                    alert('hi' + e + '!!!')
+                },
+                doThis() {
+                    alert('123')
+                }
+            }
+        })
+
+        // 也可以用 JavaScript 直接调用方法
+        vm.sayHello() // => 'Hello Vue.js!'
+    </script>
+</body>
+</html>

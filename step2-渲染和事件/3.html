@@ -1,0 +1,34 @@
+<!-- 绑定内联样式 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div :style="{ color: activeColor, fontSize: fontSize  + 'px'}">hello world!!</div>
+        
+        <!-- 直接绑定一个对象 -->
+        <div :style="styleObject">This is Frank</div>
+    </div>
+
+    <script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            activeColor: 'blue',
+            fontSize: 30,
+            styleObject: {
+                color: 'red',
+                fontSize: '20px'
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>

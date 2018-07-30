@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="goHome">home</button>
+        <button @click="goSchool">school</button>
+        <button @click="goHotel">hotel</button>
+
+        <button @click="goback">后退</button>
+        <router-view></router-view>
+    </div>
+
+    <script>
+        // router.push(location, onComplete?, onAbort?)
+        // 注意：在 Vue 实例内部，你可以通过 $router 访问路由实例。因此你可以调用 this.$router.push。
+        const home = {
+            template: '<div>这是首页</div>'
+        };
+        const school = {
+            template: '<div>这是学校{{$route.params.userId}}</div>'
+        };
+        const hotel = {
+            template: '<div>这是hotel{{$route.params.roomnum}}</div>'
+        };
+
+        const routes = [
+            { path: '/home', component: home },
+            { path: '/school/:userId', name: 'school', component: school },
+            { path:'/hotel/:roomnum', component: hotel }
+        ];
+
+        const router = new VueRouter({
+            routes: routes
+        });
+
+        const app = new Vue({
+            methods: {
+                goHome() {
+                    router.push('home')
+                },
+                goSchool() {
+                    router.push({ name: 'school', params: { userId: 123 }})
+                },
+                goHotel() {
+                    const roomnum = 123456;
+                    // router.push({ name: 'roomnum', params: { roomnum }}) // -> /user/123
+                    router.push({ path: `hotel/${roomnum}` }) // -> /user/123
+                    // 这里的 params 不生效
+                    // router.push({ path: '/hotel', params: { roomnum }}) // -> /user
+                    // 注意：如果提供了 path，params 会被忽略，上述例子中的 query 并不属于这种情况。
+                    // router.replace({ path: `hotel/${roomnum}` })
+
+                    /***
+                     * router.replace(location, onComplete?, onAbort?)
+                     * 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。
+                     * */
+                },
+                goback() {
+                    router.go(-1)
+                }
+
+
+            }
+            ,router
+        }).$mount('#app')
+    </script>
+</body>
+</html>

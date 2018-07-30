@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 如果 <navigation-link> 没有包含一个 <slot> 元素，则任何传入它的
+            内容都会被抛弃。 -->
+        <navigation :url="surl">
+            123走起
+            <div>this is newlife</div>
+            <div is="A" :imgurl="imgurl"></div>
+        </navigation>
+
+
+        <!-- 具名插槽 -->
+
+        
+    </div>
+
+    <script>
+        Vue.component('navigation', {
+            props:['url'],
+            template: `
+            <a
+            v-bind:href="url"
+            class="nav-link"
+            >
+            <slot></slot>
+            </a>
+            `
+        })
+
+        Vue.component('A', {
+            props: ['imgurl'],
+            template: `
+                <a :href="imgurl">图片地址</a>
+            `
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                surl: 'http://www.baidu.com',
+                imgurl: 'http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=haiz&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2990197321,321553076&os=2525025347,679838257&simid=0,0&pn=0&rn=1&di=126350375801&ln=1892&fr=&fmq=1532252329366_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fg.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff703738da97739124d21b41afe198618367ae242.jpg&rpstart=0&rpnum=0&adpicid=0'
+            }
+        })
+    </script>
+</body>
+</html>

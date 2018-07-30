@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ol>
+            <todo-item v-for="item in List" :data="item" :key="item.id"></todo-item>
+        </ol>
+    </div>
+
+    <script>
+        // 1 首先创建一个组件
+        // Vue.component('todo-item1', {
+        //     template: '<li>Hello World!!</li>'
+        // })
+
+        // Vue.component('todo-item2', {
+        //     template: '<li>This is my frist component!!</li>'
+        // })
+
+        // Vue.component('todo', {
+        //     template: '<div><todo-item1></todo-item1><todo-item2></todo-item2><div>'
+        // })
+
+        Vue.component('todo-item', {
+            props: ['data'],
+            template: '<li>{{data.text}}</li>'
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                List: [
+                    { id: 0, text: '太阳' },
+                    { id: 1, text: '月亮' },
+                    { id: 2, text: '星星' }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
